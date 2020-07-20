@@ -6,11 +6,17 @@ function App() {
   const [count, setCount] = useState(0)
   const [arr, setArr] = useState(Array(9).fill(null))
   const [status, setStatus] = useState('GAMING...')
+  const [list, setList] = useState(['Step0'])
+  const [historySteps, setHistorySteps] = useState([Array(9).fill(null)])
+  const [currentArr, setCurrentArr] = useState(Array(9).fill(null))
 
   function handleReset() {
     setArr(Array(9).fill(null))
     setCount(0)
     setStatus('GAMING...')
+    setList(['Step0'])
+    setHistorySteps([Array(9).fill(null)])
+    setCurrentArr(Array(9).fill(null))
   }
 
   function handleClick(index) {
@@ -21,6 +27,13 @@ function App() {
     arr[index] = count % 2 ? 'X' : 'O'
     setCount(count + 1)
     setArr([...arr])
+    historySteps.push(arr)
+    setHistorySteps([...historySteps])
+    list.push('Step' + (count + 1))
+    setList(list)
+    setCurrentArr([...arr])
+
+    console.log(historySteps)
 
     //行相等
     if (arr[0] && arr[0] === arr[1] && arr[1] === arr[2]) {
@@ -58,38 +71,63 @@ function App() {
     }
   }
 
+  console.log(currentArr, 'mmmm')
+
   return (
     <div className="wrapper">
       <div>{status}</div>
       <button onClick={handleReset}>重置</button>
-      <div className="rows">
-        {arr.slice(0, 3).map((item, index) => (
-          <div className="box" key={index} onClick={() => handleClick(index)}>
-            {item}
+      <div className="flexBox">
+        <div className="chess">
+          <div className="rows">
+            {currentArr.slice(0, 3).map((item, index) => (
+              <div
+                className="box"
+                key={index}
+                onClick={() => handleClick(index)}
+              >
+                {item}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="rows">
-        {arr.slice(3, 6).map((item, index) => (
-          <div
-            className="box"
-            key={index}
-            onClick={() => handleClick(index + 3)}
-          >
-            {item}
+          <div className="rows">
+            {currentArr.slice(3, 6).map((item, index) => (
+              <div
+                className="box"
+                key={index}
+                onClick={() => handleClick(index + 3)}
+              >
+                {item}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="rows">
-        {arr.slice(6, 9).map((item, index) => (
-          <div
-            className="box"
-            key={index}
-            onClick={() => handleClick(index + 6)}
-          >
-            {item}
+          <div className="rows">
+            {currentArr.slice(6, 9).map((item, index) => (
+              <div
+                className="box"
+                key={index}
+                onClick={() => handleClick(index + 6)}
+              >
+                {item}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        <div className="historyList">
+          <ul>
+            {list.map((item, index) => (
+              <li key={index + item}>
+                <button
+                  onClick={() => {
+                    setCurrentArr(historySteps[index])
+                  }}
+                >
+                  {index}:{item}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )

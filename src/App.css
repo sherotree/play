@@ -4,10 +4,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40vw;
-  height: 40vw;
+  width: 30vw;
+  height: 30vw;
   box-sizing: border-box;
   border-radius: 10px;
+}
+
+.flexBox {
+  display: flex;
 }
 
 .rows {
@@ -15,11 +19,11 @@
 }
 
 .box {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   background-color: wheat;
   border: 1px solid white;
   text-align: center;
-  line-height: 200px;
-  font-size: 200px;
+  line-height: 100px;
+  font-size: 100px;
 }
