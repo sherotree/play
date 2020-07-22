@@ -41,12 +41,13 @@ function App() {
     ]
 
     for (let i = 0; i < hash.length; i++) {
+      const temp = hash[i]
       if (
-        arr[hash[i][0]] &&
-        arr[hash[i][0]] === arr[hash[i][1]] &&
-        arr[hash[i][1]] === arr[hash[i][2]]
+        arr[temp[0]] &&
+        arr[temp[0]] === arr[temp[1]] &&
+        arr[temp[1]] === arr[temp[2]]
       ) {
-        setStatus(arr[hash[i][0]])
+        setStatus(arr[temp[0]])
       }
     }
   }
@@ -57,39 +58,25 @@ function App() {
       <button onClick={handleReset}>重置</button>
       <div className="flexBox">
         <div className="chess">
-          <div className="rows">
-            {currentArr.slice(0, 3).map((item, index) => (
-              <div
-                className="box"
-                key={index}
-                onClick={() => handleClick(index)}
-              >
-                {item}
+          {[
+            currentArr.slice(0, 3),
+            currentArr.slice(3, 6),
+            currentArr.slice(6, 9),
+          ].map((x, i) => (
+            <div key={i}>
+              <div className="rows">
+                {x.map((item, index) => (
+                  <div
+                    className="box"
+                    key={index}
+                    onClick={() => handleClick(index + i * 3)}
+                  >
+                    {item}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="rows">
-            {currentArr.slice(3, 6).map((item, index) => (
-              <div
-                className="box"
-                key={index}
-                onClick={() => handleClick(index + 3)}
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-          <div className="rows">
-            {currentArr.slice(6, 9).map((item, index) => (
-              <div
-                className="box"
-                key={index}
-                onClick={() => handleClick(index + 6)}
-              >
-                {item}
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
         <div className="historyList">
           <ul>
