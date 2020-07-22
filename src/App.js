@@ -4,14 +4,13 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [arr, setArr] = useState(Array(9).fill(null))
   const [status, setStatus] = useState('GAMING...')
   const [historySteps, setHistorySteps] = useState([Array(9).fill(null)])
   const [currentArr, setCurrentArr] = useState(Array(9).fill(null))
   const list = Array(count + 1).fill(0)
+  const arr = historySteps[count]
 
   function handleReset() {
-    setArr(Array(9).fill(null))
     setCount(0)
     setStatus('GAMING...')
     setHistorySteps([Array(9).fill(null)])
@@ -23,14 +22,13 @@ function App() {
       return
     }
 
-    arr[index] = count % 2 ? 'X' : 'O'
-    setCount(count + 1)
-    setArr([...arr])
-    historySteps.push(arr)
-    setHistorySteps([...historySteps])
-    setCurrentArr([...arr])
+    const temp = [...arr]
+    temp[index] = count % 2 ? 'X' : 'O'
 
-    console.log(historySteps)
+    historySteps.push([...temp])
+    setCount(count + 1)
+    setHistorySteps([...historySteps])
+    setCurrentArr([...temp])
 
     //行相等
     if (arr[0] && arr[0] === arr[1] && arr[1] === arr[2]) {
@@ -67,8 +65,6 @@ function App() {
       setStatus(arr[2] + '  WIN')
     }
   }
-
-  console.log(currentArr, 'mmmm')
 
   return (
     <div className="wrapper">
