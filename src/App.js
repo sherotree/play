@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import logo from './logo.svg'
 import './App.css'
 
 function App() {
@@ -30,50 +29,25 @@ function App() {
     setHistorySteps([...historySteps])
     setCurrentArr([...temp])
 
-    //行相等
-    for (let i = 0; i <= 6; i = i + 3) {
-      if (arr[i] && arr[i] === arr[i + 1] && arr[i + 1] === arr[i + 2]) {
-        setStatus(arr[i] + '  WIN')
+    const hash = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ]
+
+    for (let i = 0; i < hash.length; i++) {
+      if (
+        arr[hash[i][0]] &&
+        arr[hash[i][0]] === arr[hash[i][1]] &&
+        arr[hash[i][1]] === arr[hash[i][2]]
+      ) {
+        setStatus(arr[hash[i][0]])
       }
-    }
-    // if (arr[0] && arr[0] === arr[1] && arr[1] === arr[2]) {
-    //   setStatus(arr[0] + '  WIN')
-    // }
-
-    // if (arr[3] && arr[3] === arr[4] && arr[4] === arr[5]) {
-    //   setStatus(arr[3] + '  WIN')
-    // }
-
-    // if (arr[6] && arr[6] === arr[7] && arr[7] === arr[8]) {
-    //   setStatus(arr[6] + '  WIN')
-    // }
-
-    //列相等
-    for (let i = 0; i <= 2; i++) {
-      if (arr[i] && arr[i] === arr[i + 3] && arr[i + 3] === arr[i + 6]) {
-        setStatus(arr[i] + '  WIN')
-      }
-    }
-
-    // if (arr[0] && arr[0] === arr[3] && arr[3] === arr[6]) {
-    //   setStatus(arr[0] + '  WIN')
-    // }
-
-    // if (arr[1] && arr[1] === arr[4] && arr[4] === arr[7]) {
-    //   setStatus(arr[1] + '  WIN')
-    // }
-
-    // if (arr[2] && arr[2] === arr[5] && arr[5] === arr[8]) {
-    //   setStatus(arr[2] + '  WIN')
-    // }
-
-    //对角相等
-    if (arr[0] && arr[0] === arr[4] && arr[4] === arr[8]) {
-      setStatus(arr[0] + '  WIN')
-    }
-
-    if (arr[2] && arr[2] === arr[4] && arr[4] === arr[6]) {
-      setStatus(arr[2] + '  WIN')
     }
   }
 
