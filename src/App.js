@@ -31,30 +31,41 @@ function App() {
     setCurrentArr([...temp])
 
     //行相等
-    if (arr[0] && arr[0] === arr[1] && arr[1] === arr[2]) {
-      setStatus(arr[0] + '  WIN')
+    for (let i = 0; i <= 6; i = i + 3) {
+      if (arr[i] && arr[i] === arr[i + 1] && arr[i + 1] === arr[i + 2]) {
+        setStatus(arr[i] + '  WIN')
+      }
     }
+    // if (arr[0] && arr[0] === arr[1] && arr[1] === arr[2]) {
+    //   setStatus(arr[0] + '  WIN')
+    // }
 
-    if (arr[3] && arr[3] === arr[4] && arr[4] === arr[5]) {
-      setStatus(arr[3] + '  WIN')
-    }
+    // if (arr[3] && arr[3] === arr[4] && arr[4] === arr[5]) {
+    //   setStatus(arr[3] + '  WIN')
+    // }
 
-    if (arr[6] && arr[6] === arr[7] && arr[7] === arr[8]) {
-      setStatus(arr[6] + '  WIN')
-    }
+    // if (arr[6] && arr[6] === arr[7] && arr[7] === arr[8]) {
+    //   setStatus(arr[6] + '  WIN')
+    // }
 
     //列相等
-    if (arr[0] && arr[0] === arr[3] && arr[3] === arr[6]) {
-      setStatus(arr[0] + '  WIN')
+    for (let i = 0; i <= 2; i++) {
+      if (arr[i] && arr[i] === arr[i + 3] && arr[i + 3] === arr[i + 6]) {
+        setStatus(arr[i] + '  WIN')
+      }
     }
 
-    if (arr[1] && arr[1] === arr[4] && arr[4] === arr[7]) {
-      setStatus(arr[1] + '  WIN')
-    }
+    // if (arr[0] && arr[0] === arr[3] && arr[3] === arr[6]) {
+    //   setStatus(arr[0] + '  WIN')
+    // }
 
-    if (arr[2] && arr[2] === arr[5] && arr[5] === arr[8]) {
-      setStatus(arr[2] + '  WIN')
-    }
+    // if (arr[1] && arr[1] === arr[4] && arr[4] === arr[7]) {
+    //   setStatus(arr[1] + '  WIN')
+    // }
+
+    // if (arr[2] && arr[2] === arr[5] && arr[5] === arr[8]) {
+    //   setStatus(arr[2] + '  WIN')
+    // }
 
     //对角相等
     if (arr[0] && arr[0] === arr[4] && arr[4] === arr[8]) {
