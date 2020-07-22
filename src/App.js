@@ -21,13 +21,8 @@ function App() {
       return
     }
 
-    const temp = [...arr]
-    temp[index] = count % 2 ? 'X' : 'O'
-
-    historySteps.push([...temp])
-    setCount(count + 1)
-    setHistorySteps([...historySteps])
-    setCurrentArr([...temp])
+    const tempArr = [...arr]
+    tempArr[index] = count % 2 ? 'X' : 'O'
 
     const hash = [
       [0, 1, 2],
@@ -43,13 +38,18 @@ function App() {
     for (let i = 0; i < hash.length; i++) {
       const temp = hash[i]
       if (
-        arr[temp[0]] &&
-        arr[temp[0]] === arr[temp[1]] &&
-        arr[temp[1]] === arr[temp[2]]
+        tempArr[temp[0]] &&
+        tempArr[temp[0]] === tempArr[temp[1]] &&
+        tempArr[temp[1]] === tempArr[temp[2]]
       ) {
-        setStatus(arr[temp[0]])
+        setStatus(tempArr[temp[0]] + '  WIN')
       }
     }
+
+    historySteps.push([...tempArr])
+    setCount(count + 1)
+    setHistorySteps([...historySteps])
+    setCurrentArr([...tempArr])
   }
 
   return (
