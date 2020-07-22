@@ -6,15 +6,14 @@ function App() {
   const [count, setCount] = useState(0)
   const [arr, setArr] = useState(Array(9).fill(null))
   const [status, setStatus] = useState('GAMING...')
-  const [list, setList] = useState(['Step0'])
   const [historySteps, setHistorySteps] = useState([Array(9).fill(null)])
   const [currentArr, setCurrentArr] = useState(Array(9).fill(null))
+  const list = Array(count + 1).fill(0)
 
   function handleReset() {
     setArr(Array(9).fill(null))
     setCount(0)
     setStatus('GAMING...')
-    setList(['Step0'])
     setHistorySteps([Array(9).fill(null)])
     setCurrentArr(Array(9).fill(null))
   }
@@ -29,8 +28,6 @@ function App() {
     setArr([...arr])
     historySteps.push(arr)
     setHistorySteps([...historySteps])
-    list.push('Step' + (count + 1))
-    setList(list)
     setCurrentArr([...arr])
 
     console.log(historySteps)
@@ -122,7 +119,7 @@ function App() {
                     setCurrentArr(historySteps[index])
                   }}
                 >
-                  {index}:{item}
+                  第{index}步
                 </button>
               </li>
             ))}
