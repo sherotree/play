@@ -8,18 +8,25 @@ function App() {
   const [currentArr, setCurrentArr] = useState(Array(9).fill(null))
   const list = Array(count + 1).fill(0)
   const arr = historySteps[count]
+  const [resultList, setResultList] = useState([])
+  const [highlightCell, setHighlightCell] = useState([])
 
   function handleReset() {
     setCount(0)
     setStatus('GAMING...')
     setHistorySteps([Array(9).fill(null)])
     setCurrentArr(Array(9).fill(null))
+    resultList.push((count % 2 ? 'X' : 'O') + '  Reset')
+    setResultList([...resultList])
+    setHighlightCell([])
   }
 
   function handleClick(index) {
     if (arr[index] || status !== 'GAMING...') {
       return
     }
+
+    console.log(count)
 
     const tempArr = [...arr]
     tempArr[index] = count % 2 ? 'X' : 'O'
@@ -35,6 +42,7 @@ function App() {
       [2, 4, 6],
     ]
 
+    let flag = true
     for (let i = 0; i < hash.length; i++) {
       const temp = hash[i]
       if (
@@ -43,15 +51,26 @@ function App() {
         tempArr[temp[1]] === tempArr[temp[2]]
       ) {
         setStatus(tempArr[temp[0]] + '  WIN')
+        resultList.push(tempArr[temp[0]] + '  WIN')
+        flag = false
+        setHighlightCell(temp)
+        break
       }
     }
 
+    if (count === 8 && flag) {
+      resultList.push('X and O are equal!')
+      setResultList([...resultList])
+    }
+
+    setResultList([...resultList])
     historySteps.push([...tempArr])
     setCount(count + 1)
     setHistorySteps([...historySteps])
     setCurrentArr([...tempArr])
   }
 
+  console.log(highlightCell, '-----')
   return (
     <div className="wrapper">
       <div>{status}</div>
@@ -70,6 +89,14 @@ function App() {
                     className="box"
                     key={index}
                     onClick={() => handleClick(index + i * 3)}
+                    style={{
+                      color:
+                        currentArr.toString() ===
+                          historySteps[historySteps.length - 1].toString() &&
+                        highlightCell.includes(index + i * 3)
+                          ? 'red'
+                          : 'black',
+                    }}
                   >
                     {item}
                   </div>
@@ -89,6 +116,15 @@ function App() {
                 >
                   第{index}步
                 </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <ul>
+            {resultList.map((item, index) => (
+              <li key={index} style={{ width: 200 }}>
+                {index + 1}:{item}
               </li>
             ))}
           </ul>
