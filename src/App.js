@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
+import { Button } from 'antd'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -124,19 +125,19 @@ function App() {
           ))}
         </div>
         <div className="historyList">
-          <ul>
-            {list.map((item, index) => (
-              <li key={index + item}>
-                <button
-                  onClick={() => {
-                    setCurrentArr(historySteps[index])
-                  }}
-                >
-                  第{index}步
-                </button>
-              </li>
-            ))}
-          </ul>
+          {list.map((item, index) => (
+            <div key={index + item} style={{}}>
+              <Button
+                type="primary"
+                style={{ margin: '5px 20px' }}
+                onClick={() => {
+                  setCurrentArr(historySteps[index])
+                }}
+              >
+                第{index}步
+              </Button>
+            </div>
+          ))}
         </div>
         <div>
           <ul>
