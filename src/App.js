@@ -53,8 +53,26 @@ function App() {
         setStatus(tempArr[temp[0]] + '  WIN')
         resultList.push(tempArr[temp[0]] + '  WIN')
         flag = false
-        setHighlightCell(temp)
         break
+      }
+    }
+    const midArr = []
+    for (let i = 0; i < hash.length; i++) {
+      const temp = hash[i]
+
+      if (
+        tempArr[temp[0]] &&
+        tempArr[temp[0]] === tempArr[temp[1]] &&
+        tempArr[temp[1]] === tempArr[temp[2]]
+      ) {
+        for (let j = 0; j < 3; j++) {
+          if (!midArr.includes(temp[j])) {
+            midArr.push(temp[j])
+          }
+        }
+        console.log(midArr, '=====')
+
+        setHighlightCell(midArr)
       }
     }
 
