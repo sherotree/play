@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
+import Timer from './Timer'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import 'antd/dist/antd.css'
@@ -9,8 +10,8 @@ import 'antd/dist/antd.css'
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route path="/about">
-        <div>about</div>
+      <Route path="/timer">
+        <Timer />
       </Route>
       <Route path="/users">
         <div>users</div>
