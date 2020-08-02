@@ -16,6 +16,7 @@ function Todo() {
       list.push({
         value: value,
         isChecked: false,
+        isDeleted: false,
         time: moment(new Date()).format('HH:mm:ss'),
       })
       setList([...list])
@@ -27,6 +28,11 @@ function Todo() {
 
   function checkChange(e, index) {
     list[index].isChecked = e.target.checked
+    setList([...list])
+  }
+
+  function deleteHandle(e, index) {
+    list[index].isDeleted = !list[index].isDeleted
     setList([...list])
   }
 
@@ -43,15 +49,24 @@ function Todo() {
 
       <div>
         {list.map((item, index) => (
-          <div key={index} style={{ fontSize: '18px', fontWeight: 'bold' }}>
+          <div
+            key={index}
+            style={{
+              fontSize: '18px',
+              fontWeight: 'bold',
+              color: get(item, 'isDeleted') ? 'lightgray' : 'black',
+              textDecoration: get(item, 'isDeleted') ? 'line-through' : 'none',
+            }}
+          >
             {index + 1}. {get(item, 'value')}
-            <span style={{ fontSize: '12px', color: 'gray' }}>
-              {get(item, 'time')}
-            </span>
+            <span style={{ fontSize: '12px' }}>{get(item, 'time')}</span>
             <Checkbox
               onChange={(e) => checkChange(e, index)}
               checked={get(item, 'isChecked')}
             />
+            <Button onClick={(e) => deleteHandle(e, index)}>
+              {get(item, 'isDeleted') ? '恢复' : '删除'}
+            </Button>
           </div>
         ))}
       </div>
