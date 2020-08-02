@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Input, Button, message, Checkbox } from 'antd'
+import { DeleteOutlined, RedoOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import { get } from 'lodash'
 
@@ -32,6 +33,7 @@ function Todo() {
   }
 
   function deleteHandle(e, index) {
+    console.log('333333', list, index)
     list[index].isDeleted = !list[index].isDeleted
     setList([...list])
   }
@@ -47,14 +49,14 @@ function Todo() {
       />
       <Button onClick={addHandle}>增加</Button>
 
-      <div>
+      <div style={{ margin: 50 }}>
         {list.map((item, index) => (
           <div
             key={index}
             style={{
               fontSize: '18px',
               fontWeight: 'bold',
-              color: get(item, 'isDeleted') ? 'lightgray' : 'black',
+              color: get(item, 'isDeleted') ? 'red' : 'black',
               textDecoration: get(item, 'isDeleted') ? 'line-through' : 'none',
             }}
           >
@@ -63,10 +65,19 @@ function Todo() {
             <Checkbox
               onChange={(e) => checkChange(e, index)}
               checked={get(item, 'isChecked')}
+              style={{ margin: 20 }}
             />
-            <Button onClick={(e) => deleteHandle(e, index)}>
-              {get(item, 'isDeleted') ? '恢复' : '删除'}
-            </Button>
+            {get(item, 'isDeleted') ? (
+              <RedoOutlined
+                style={{ color: 'skyblue' }}
+                onClick={(e) => deleteHandle(e, index)}
+              />
+            ) : (
+              <DeleteOutlined
+                style={{ color: 'red' }}
+                onClick={(e) => deleteHandle(e, index)}
+              />
+            )}
           </div>
         ))}
       </div>
