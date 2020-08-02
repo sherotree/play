@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import Timer from './Timer'
+import Todo from './Todo'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import 'antd/dist/antd.css'
@@ -13,8 +14,8 @@ ReactDOM.render(
       <Route path="/timer">
         <Timer />
       </Route>
-      <Route path="/users">
-        <div>users</div>
+      <Route path="/todo">
+        <Todo />
       </Route>
       <Route path="/">
         <App />
