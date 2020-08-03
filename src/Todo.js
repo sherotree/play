@@ -18,7 +18,7 @@ function Todo() {
         value: value,
         isChecked: false,
         isDeleted: false,
-        time: moment(new Date()).format('HH:mm:ss'),
+        time: new Date(),
       })
       setList([...list])
       setValue('')
@@ -32,8 +32,7 @@ function Todo() {
     setList([...list])
   }
 
-  function deleteHandle(e, index) {
-    console.log('333333', list, index)
+  function deleteHandle(index) {
     list[index].isDeleted = !list[index].isDeleted
     setList([...list])
   }
@@ -58,26 +57,57 @@ function Todo() {
               fontWeight: 'bold',
               color: get(item, 'isDeleted') ? 'red' : 'black',
               textDecoration: get(item, 'isDeleted') ? 'line-through' : 'none',
+              margin: 20,
+              minHeight: 200,
+              border: 'solid 1px rgba(0,0,0,0.2)',
+              borderRadius: 10,
+              padding: '10px 20px',
             }}
           >
-            {index + 1}. {get(item, 'value')}
-            <span style={{ fontSize: '12px' }}>{get(item, 'time')}</span>
-            <Checkbox
-              onChange={(e) => checkChange(e, index)}
-              checked={get(item, 'isChecked')}
-              style={{ margin: 20 }}
-            />
-            {get(item, 'isDeleted') ? (
-              <RedoOutlined
-                style={{ color: 'skyblue' }}
-                onClick={(e) => deleteHandle(e, index)}
+            <div>
+              <Checkbox
+                onChange={(e) => checkChange(e, index)}
+                checked={get(item, 'isChecked')}
+                style={{ margin: '20 0 10' }}
               />
-            ) : (
-              <DeleteOutlined
-                style={{ color: 'red' }}
-                onClick={(e) => deleteHandle(e, index)}
-              />
-            )}
+              {get(item, 'isDeleted') ? (
+                <RedoOutlined
+                  style={{ color: 'skyblue', marginLeft: 20 }}
+                  onClick={() => deleteHandle(index)}
+                />
+              ) : (
+                <DeleteOutlined
+                  style={{ color: 'red', marginLeft: 20 }}
+                  onClick={() => deleteHandle(index)}
+                />
+              )}
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                borderBottom: 'solid 1px rgba(0,0,0,0.2)',
+                borderTop: 'solid 1px rgba(0,0,0,0.2)',
+                margin: '20px 0',
+                padding: '10px 0',
+              }}
+            >
+              <div
+                style={{
+                  marginRight: 100,
+                }}
+              >
+                <div>
+                  {index + 1}. {get(item, 'value')}
+                </div>
+                <div>过会儿再做</div>
+              </div>
+
+              <div>
+                <div>{moment(get(item, 'time')).format('MMM')}</div>
+                <div>{moment(get(item, 'time')).format('HH:mm:ss')}</div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
